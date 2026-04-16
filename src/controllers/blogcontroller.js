@@ -4,7 +4,7 @@ const Blog = db.Blog;
 // =====================
 // CREATE BLOG
 // =====================
- exports.createBlog = async (req, res) => {
+exports.createBlog = async (req, res) => {
   try {
     const { title, content } = req.body;
 
@@ -44,6 +44,9 @@ exports.getAllBlogs = async (req, res) => {
   }
 };
 
+// =====================
+// UPDATE BLOG
+// =====================
 exports.updateBlog = async (req, res) => {
   try {
     const blog = await Blog.findByPk(req.params.id);
@@ -70,29 +73,27 @@ exports.updateBlog = async (req, res) => {
   }
 };
 
-
 // =====================
 // DELETE BLOG
-// DELETE /api/blogs/:id
 // =====================
 exports.deleteBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
-    const userId = req.user.id; // from JWT middleware
+    const userId = req.user.id;
 
-    // 1️⃣ Find blog
+    // Find blog
     const blog = await Blog.findByPk(blogId);
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // 2️⃣ Check ownership
+    // Check ownership
     if (blog.userId !== userId) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    // 3️⃣ Delete blog
+    // Delete blog
     await blog.destroy();
 
     res.status(200).json({
@@ -104,4 +105,3 @@ exports.deleteBlog = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-

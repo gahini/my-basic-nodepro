@@ -11,9 +11,9 @@ router.post("/login", authController.login);
 router.post("/forgot-password", authController.forgotPassword);
 router.post("/reset-password", authController.resetPassword);
 
-router.put("/update-password",authMiddleware,authController.updatePassword);
+router.put("/update-password", authMiddleware, authController.updatePassword);
 
 // 🔐 ROLE MANAGEMENT (SUPER ADMIN ONLY)
-router.put( "/update-role/:userId",authMiddleware,superAdminOnly("SUPER_ADMIN"),authController.updateUserRole);
+router.put("/update-role/:userId", authMiddleware, superAdminOnly("SUPER_ADMIN"), authController.updateUserRole);
 
 module.exports = router;

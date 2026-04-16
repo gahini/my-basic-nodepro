@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // import individual routes
-const authRoutes = require("./authRoutes");
+const authRoutes = require("./authroutes");
 const blogRoutes = require("./blogroutes");
 
 // mount routes

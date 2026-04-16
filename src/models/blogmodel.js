@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
 
-    // 🔥 FOREIGN KEY (THIS WAS MISSING / MISUSED)
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false

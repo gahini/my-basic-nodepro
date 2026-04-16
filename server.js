@@ -1,8 +1,8 @@
 require("dotenv").config();
-const app = require("./app");
+const app = require("./src/app");
 
-// 🔥 IMPORTANT: import models BEFORE sync
-const db = require("./models");
+// 🔥 IMPORTANT: import models BEFORE migrations
+const db = require("./src/models");
 
 const PORT = process.env.PORT || 5000;
 
@@ -12,10 +12,7 @@ const PORT = process.env.PORT || 5000;
     await db.sequelize.authenticate();
     console.log("Database connected");
 
-    // 🔥 This now knows about User & Blog models
-    await db.sequelize.sync({alter: true});
-    console.log("Models synced");
-
+    // 🔥 Migrations handle schema - no sync needed
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });

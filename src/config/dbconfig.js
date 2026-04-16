@@ -1,5 +1,7 @@
 const { Sequelize } = require("sequelize");
 
+const useSsl = process.env.DB_SSL === "true";
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -8,9 +10,15 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: "postgres",
     port: Number(process.env.DB_PORT),
-
-     logging: false
-     // 🔥 CHANGE HERE
+    logging: false,
+    dialectOptions: useSsl
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false
+          }
+        }
+      : {}
   }
 );
 
