@@ -28,7 +28,7 @@ const isStrongPassword = (password) => {
 exports.register = async (req, res) => {
   try {
 
-    const { name, email, password,} = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -65,8 +65,6 @@ exports.register = async (req, res) => {
       password: hashedPassword,
       role
     });
-
-    //userId: newUser.id,
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -316,7 +314,7 @@ exports.updatePassword = async (req, res) => {
   try {
 
     const { oldPassword, newPassword } = req.body;
-    const userId = req.userId;
+    const userId = req.user.id;
 
     if (!oldPassword || !newPassword) {
       return res.status(400).json({
